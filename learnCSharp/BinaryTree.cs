@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 /// <summary>
 /// A Binary Tree- we're not going to bother with deletion because it's fiddly.
@@ -40,18 +40,18 @@ public class BinaryTree<T> where T : IComparable
             {
                 this.right.Add(data);
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 this.right = new BinaryTree<T>(data);
             }
-        } 
+        }
         else
         {
             try
             {
                 this.left.Add(data);
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 this.left = new BinaryTree<T>(data);
             }
@@ -86,7 +86,6 @@ public class BinaryTree<T> where T : IComparable
         {
             right.InOrder();
         }
-
     }
 
     public void PostOrder()
@@ -126,8 +125,8 @@ public class BinaryTree<T> where T : IComparable
                 return false;
             }
         }
-
-        try
+        
+        try // try catch is nice to avoid race conditions
         {
             return this.left.Exists(data);
         }
