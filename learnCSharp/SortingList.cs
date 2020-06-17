@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,13 +6,13 @@ namespace learnCSharp
 {
     class SortingList
     {
-        private int[] list;
+        public int[] list;
         public readonly int Length;
 
         public SortingList(int requiredLength)
         {
             Length = requiredLength;
-            list = new int[requiredLength];
+            list = new int[Length];
         }
 
         public int getListItem(int i)
@@ -48,7 +48,7 @@ namespace learnCSharp
                 if (list[i] == 0)
                 {
                     /* There is nothing in this place, so just take it */
-                    // list[_] = value;
+                    list[i] = value;
                     break;
                 }
                 if (value < list[i])
