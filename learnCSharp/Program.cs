@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -9,31 +9,44 @@ namespace learnCSharp
     {
         static void Main(String[] args)
         {
-            Console.WriteLine("Hello World!");
-
-            graph();
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("1 = Sorting\n2 = Binary Tree\n3 = Linked List");
+                var userInput = Console.ReadKey().KeyChar;
+                switch (userInput)
+                {
+                    case '1':
+                        Sort();
+                        break;
+                    case '2':
+                        binaryTree();
+                        break;
+                    case '3':
+                        doLinkedList();
+                        break;
+                    default:
+                        Console.WriteLine("\nInvalid input");
+                        break;
+                }
+            }
         }
 
         static void graph()
         {
-            var london = new GraphNode<String>("London");
-            var edinburgh = new GraphNode<String>("Edinburgh");
-            var leeds = new GraphNode<String>("Leeds");
-            var glasgow = new GraphNode<String>("Glasgow");
+            GraphNode<String> london = new GraphNode<String>("London");
+            GraphNode<String> edinburgh = new GraphNode<String>("Edinburgh");
 
             london.ConnectTo(edinburgh, 650);
-            london.ConnectTo(leeds, 400);
-            edinburgh.ConnectTo(glasgow);
-
 
             // What is London connected to first?
-            //Console.Out.WriteLine(london.Edges[0].OtherNode(london).Data);
-
-            london.DepthFirstTraversalIterative();
+            Console.Out.WriteLine(london.Edges[0].OtherNode(london).Data);
         }
 
         static void binaryTree()
         {
+            Console.Clear();
+
             var bTree = new BinaryTree<int>(5);
 
             bTree.Add(10);
@@ -42,7 +55,8 @@ namespace learnCSharp
 
             bTree.InOrder();
 
-            bTree.Exists(5);
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadLine();
         }
 
         static void schoolDirectory()
@@ -67,21 +81,13 @@ namespace learnCSharp
             LinkedList l;
             ListNode tmp;
 
-            l = new LinkedList(1);
+            l = new LinkedList(1); // create a new list
 
-            l.append(5);
+            l.append(5); // add 5 & 10 to the list
             l.append(10);
 
-            try
-            {
-                l.deleteItem(6);
-            }
-            catch (NullReferenceException e)
-            {
-                // Do nothing, we're happy
-            }
 
-            /* l.printAll() */
+            l.printAll(); // print the contents of the completed list
 
             tmp = l.first;
             Console.Out.WriteLine(tmp.data);
@@ -89,10 +95,15 @@ namespace learnCSharp
                 Console.Out.WriteLine(tmp.data);
 
             l = null;
+
+            Console.WriteLine("Press enter to continue...");
+            Console.ReadLine();
         }
 
         static void Sort()
         {
+            Console.Clear();
+
             char response;
 
             Console.WriteLine("Please let me know what kinda sort you would like (i)nsertion sort, or (b)ubble sort, or (q)uit");
@@ -119,12 +130,32 @@ namespace learnCSharp
                 }
             }
         }
-
         static void BubbleSort()
         {
-            // Do the BubbleSort dance here!
-        }
+            var List = new SortingList(10);
+            List.Randomise();
+            List.Print();
 
+            while (true) // loops forever until break is called
+            {
+                bool swapped = false; // init a boolean to track whether any swaps have been made
+                for (int i = 0; i < List.Length - 1; i++) // for the entirety of the list, minus one (so that the final element is not compared against nothing)
+                {
+                    if (List.list[i] > List.list[i + 1]) // compare the current element to the element to it's right
+                    {
+                        swapped = true; // sets the swapped bool to true indicating that a swap has been made
+                        var tempvar = List.list[i]; // store the current element in the array
+                        List.list[i] = List.list[i + 1]; // overwrites the current element with the smaller value
+                        List.list[i + 1] = tempvar; // move the larger value to i + 1
+                    }
+                }
+                List.Print();
+                if (!swapped) // if swapped is false (indicating that no swaps have been made) the list is sorted
+                {
+                    break; // break is called to end the loop
+                }
+            }
+        }
         static void InsertionSort()
         {
             var unsortedList = new SortingList(10);
@@ -143,34 +174,6 @@ namespace learnCSharp
             }
 
             sortedList.Print();
-        }
-
-        static void bubbleSort()
-        {
-            int i, j;
-            int[] unsortedList, sortedList;
-            Random random;
-            
-            unsortedList = new int[10];
-            sortedList = new int[10];
-            random = new Random();
-
-            for (i = 0; i < unsortedList.Length; i++)
-                unsortedList[i] = random.Next(50);
-
-            /* You can also do Python-style for loops */
-            foreach (int num in unsortedList)
-                Console.WriteLine(num);
-
-            /* 
-                * Copy unsortedList into sortedList
-                */
-
-            /* 
-                * Iterate over the list, you'll need a couple of counting variables.
-                * Above, i and j are declared for you.
-                * You should know how to do a bubble sort by now, right? :)
-                */
         }
     }
 }
