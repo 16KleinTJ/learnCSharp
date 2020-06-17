@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace learnCSharp
 {
@@ -44,33 +44,25 @@ namespace learnCSharp
         {
             /* Return null if you can't find the item */
 
-            var node = this.first;
-
-            while (node.data != data)
+            /* make this! */
+            var currentNode = first;
+            while (currentNode != null)
             {
-                if (node.next == null)
-                {
-                    return null;
-                }
-                node = node.next;
+                if (currentNode.data > data)
+                    currentNode = currentNode.next;
+                else if (currentNode.data < data)
+                    currentNode = currentNode.previous;
+                else if (currentNode.data == data)
+                    return currentNode;
             }
-
-            return node;
+            return null;
         }
 
-        /// <summary>
-        /// Errors if the data doesn't exist in the list.
-        /// </summary>
-        /// <param name="data">Value of item to delete</param>
-        /// <throws>NullReferenceException</throws>
         public void deleteItem(int data)
         {
             ListNode n;
 
             n = this.findItem(data);
-
-            if (n == null)
-                throw new NullReferenceException();
 
             n.previous.next = n.next;
             n.next.previous = n.previous;
@@ -81,13 +73,12 @@ namespace learnCSharp
         public void printAll()
         {
             /* do something */
-
-            /* 
-            tmp = l.first;
-            Console.Out.WriteLine(tmp.data);
-            while ((tmp = tmp.next) != null)
-                Console.Out.WriteLine(tmp.data);
-            */
+            var currentNode = first;
+            while (currentNode != null)
+            {
+                Console.WriteLine(currentNode.data);
+                currentNode = currentNode.next;
+            }
 
         }
 
